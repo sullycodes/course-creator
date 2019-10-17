@@ -1,0 +1,11 @@
+<% @courses.all.each do |c| %>
+    <ul>
+        <li><%= c.title %></li> 
+        <% @courses.each do |c| %>
+            <% c.students.each do |s| %>
+            <%= s.name %>
+            <% end %>
+        <% end %>        
+    </ul>
+<% end %>
+
