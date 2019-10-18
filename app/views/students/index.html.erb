@@ -1,0 +1,15 @@
+<h1><%= @teacher.name %>'s Students</h1>
+
+<% @students.each do |s| %>
+    <ul>
+        <li>
+            <%= link_to s.name, '/teachers/' + @teacher.id.to_s + '/students/' + s.id.to_s  %> - 
+            <% s.courses.each do |c| %> 
+              <%= c.title %>
+            <% end %> 
+        </li> 
+    </ul>
+<% end %>
+
+
+<%#= link_to s.name, link_to s.name, teacher_student_path(s)  %>

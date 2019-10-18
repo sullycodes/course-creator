@@ -7,14 +7,15 @@
 
 <h2> Current Courses </h2>
 <% @teacher.courses.each do |c| %>
-    <p><%= link_to c.title, course_path(c) %></p>
+    <span><%= link_to c.title, course_path(c) %> -- </span>
 <% end %>
 
 <h2>Create a course</h2>
 <%= form_for @course do |f| %>
   <p>Title: <%= f.text_field :title %></p>
-  <p>Students: <%= f.collection_check_boxes :student_ids, Student.all, :id, :name %></p>
-  <%= f.hidden_field :teacher, :value => @teacher %>
+  <p>Students: <%= f.collection_check_boxes :student_ids, @students, :id, :name %></p>
+  <%= f.hidden_field :teacher_id, :value => @teacher.id %>
   <%= f.submit %>
 <% end %>
-
+<br>
+<%= link_to "Logout" %>

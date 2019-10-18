@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :students
-  resources :teachers
+  
+  resources :teachers do
+    resources :students
+  end
   resources :courses
   get '/signup' => 'teachers#new'
   get '/login' => 'sessions#new'

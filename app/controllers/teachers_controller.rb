@@ -20,6 +20,7 @@ class TeachersController < ApplicationController
 
     def show
         @teacher = Teacher.find(params[:id])
+        @students = Student.where("teacher_id= ?", @teacher.id)
         @course = Course.new
         render :show
     end

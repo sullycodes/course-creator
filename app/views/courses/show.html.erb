@@ -1,7 +1,7 @@
-<h1><%= @course.title %>!</h1>
-<!--
-<p>Number of Students: <%= @course.students.count %></p> 
-<% @course.students.each do |s| %>
-    <p><%= s.name %></p>
-<% end %>
--->
+<h1>Course Name: <%= @course.title %></h1>
+<P># of students: <%= @course.students.count %>
+<% teacher_name = @course.teacher.name %>
+<P>Teacher: <%= link_to teacher_name, teacher_path(@course.teacher)  %>
+
+
+

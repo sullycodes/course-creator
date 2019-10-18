@@ -9,14 +9,16 @@ class CoursesController < ApplicationController
     end
 
     def create
-        #@course = Course.create(course_params) 
-        @course = Course.new(
-            title: params[:course][:title],
-            teacher_id: params[:course][:teacher]
-        )
-        binding.pry
+        @teacher = Teacher.find(params[:course][:teacher_id])
+        @course = Course.create(course_params)
+        # @course = Course.new(
+        #     title: params[:course][:title],
+        #     teacher_id: @teacher.id,
+        #     student_ids: params[:course][:student_ids]
+        # )
+        # binding.pry
 
-        @course.save
+        # @course.save
         if @course.save
             redirect_to course_path(@course)
         else
@@ -46,7 +48,7 @@ class CoursesController < ApplicationController
     private
 
     def course_params
-        params.require(:course).permit(:title, :teacher, student_ids: [])
+        params.require(:course).permit(:title, :teacher_id, student_ids: [])
     end
 
 end
