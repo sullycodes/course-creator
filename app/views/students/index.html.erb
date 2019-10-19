@@ -1,15 +1,17 @@
-<h1><%= @teacher.name %>'s Students</h1>
+<h3><%= link_to @teacher.name, teacher_path(@teacher) %>'s Students</h3>
 
 <% @students.each do |s| %>
-    <ul>
-        <li>
-            <%= link_to s.name, '/teachers/' + @teacher.id.to_s + '/students/' + s.id.to_s  %> - 
-            <% s.courses.each do |c| %> 
-              <%= c.title %>
-            <% end %> 
-        </li> 
-    </ul>
+<ul>
+    <li>
+        <!-- does not work here??? --> <%#= link_to s.name, link_to s.name, teacher_student_path(s)  %>
+        <%= link_to s.name, '/teachers/' + @teacher.id.to_s + '/students/' + s.id.to_s  %>
+        <ul>
+        <% s.courses.each do |c| %> 
+            <li><%= c.title %></li>
+        <% end %>
+        </ul> 
+    </li> 
+</ul>
 <% end %>
 
-
-<%#= link_to s.name, link_to s.name, teacher_student_path(s)  %>
+<p><%= link_to "Create a New Student", new_teacher_student_path(@teacher) %></p>

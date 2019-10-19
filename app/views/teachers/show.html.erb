@@ -1,21 +1,18 @@
-<h1>Hi <%= @teacher.name %>!</h1>
+<h2>Hi <%= @teacher.name %>!</h2>
 <p>Username: <%= @teacher.username %></p>
-<p>Number of Students: <%= @teacher.students.count %></p> 
-<% @teacher.students.each do |s| %>
-    <p><%= s.name %></p>
+
+<% if @teacher.courses.count == 0 %>
+    <p><%= link_to "Create a New Course", new_course_path %></p>
+<% else %> 
+    <p>Number of <%= link_to "Courses:", courses_path %> <%= @teacher.courses.count %></p> 
+    <% if @teacher.students.count == 0  %>
+        <p><%= link_to "Create a New Student", new_teacher_student_path(@teacher) %></p>
+    <% else %>
+        <p>Number of <%= link_to "Students:", teacher_students_path(@teacher) %> <%= @teacher.students.count %></p> 
+    <% end %>
 <% end %>
 
-<h2> Current Courses </h2>
-<% @teacher.courses.each do |c| %>
-    <span><%= link_to c.title, course_path(c) %> -- </span>
-<% end %>
 
-<h2>Create a course</h2>
-<%= form_for @course do |f| %>
-  <p>Title: <%= f.text_field :title %></p>
-  <p>Students: <%= f.collection_check_boxes :student_ids, @students, :id, :name %></p>
-  <%= f.hidden_field :teacher_id, :value => @teacher.id %>
-  <%= f.submit %>
-<% end %>
-<br>
-<%= link_to "Logout" %>
+
+
+

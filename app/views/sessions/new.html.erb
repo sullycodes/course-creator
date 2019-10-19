@@ -2,16 +2,20 @@
 
 <%= form_tag '/login', method: :post do %>
 
-  <div>
+  <p>
     <%= label_tag :username %>
     <%= text_field_tag :username%>
- </div>
+ </p>
  
- <div>
+ <p>
     <%= label_tag :password %>
     <%= password_field_tag :password %>
- </div>
+ </p>
 
   <%= submit_tag 'Submit' %>
 
+  <p><%= link_to('Login with Facebook!', '/auth/facebook') %></p>
+  
 <%end%>
+
+<p> Or <%= link_to "Sign-Up", signup_path %> </p>

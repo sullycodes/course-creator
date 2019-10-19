@@ -1,7 +1,39 @@
-%= form_for @student do |f| %>
-    <p>Name: <%= f.text_field :name %></p>
-    <p>Username: <%= f.text_field :username %></p>
-    <p>Password: <%= f.password_field :password %></p>
-    <p>Password Confirmation: <%= f.password_field :password_confirmation %></p>
-    <p><%= f.submit "Submit" %></p>
+<h3>Create a Student</h3>
+
+<% if @student.errors.any? %>
+  <div id="error_explanation">
+    <p class="warning"><%= pluralize(@student.errors.count, "error") %> prohibited this course from being saved: </p>
+    <ul>
+    <% @student.errors.full_messages.each do |msg| %>
+      <li class="warning"><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @teacher.courses.count != 0 %>
+  
+    <%= form_with(model: @student, url: [@teacher, @student], local: true) do |f| %>
+        <p>Name: <%= f.text_field :name %></p>
+        <p>Bio: <%= f.text_area :bio %></p>
+        <p>Strengths: <%= f.text_field :strengths %></p>
+        <p>Weaknesses: <%= f.text_field :weaknesses %></p>
+        <p>Interests: <%= f.text_field :interests %></p>
+        <p>Grades: <%= f.text_field :grades %></p>
+        <p>Courses: <%= f.collection_check_boxes :course_ids, @teacher.courses, :id, :title %></p>
+        <p><%= f.submit "Submit" %></p>
+    <% end %>
+
+<% else %>
+
+    <%= form_with(model: @student, url: [@teacher, @student], local: true) do |f| %>
+        <p>Name: <%= f.text_field :name %></p>
+        <p>Bio: <%= f.text_area :bio %></p>
+        <p>Strengths: <%= f.text_field :strengths %></p>
+        <p>Weaknesses: <%= f.text_field :weaknesses %></p>
+        <p>Interests: <%= f.text_field :interests %></p>
+        <p>Grades: <%= f.text_field :grades %></p>
+        <p><%= f.submit "Submit" %></p>
+    <% end %>
+
 <% end %>

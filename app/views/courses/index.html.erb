@@ -1,11 +1,9 @@
-<% @courses.all.each do |c| %>
-    <ul>
-        <li><%= c.title %></li> 
-        <% @courses.each do |c| %>
-            <% c.students.each do |s| %>
-            <%= s.name %>
-            <% end %>
-        <% end %>        
-    </ul>
-<% end %>
+<h4><%= @teacher.name%>'s Courses</h4> 
+<ul>
+    <% @courses.each do |c| %>
+        <li><%= link_to c.title, course_path(c) %></li>    
+    <% end %>
+</ul>
+
+<%= link_to "Create a Course", new_course_path %>
 

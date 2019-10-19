@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+
 <html>
   <head>
-    <title>RailsProject</title>
+    <title>Rails Project</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,14 +11,20 @@
   </head>
 
   <body>
-    
+  
+  <nav class="topnav">
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <div id="wrapper">
     <div class="container">
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
     </div>
-
     <%= yield %>
-
+  </div> <!-- wrapper end -->
   </body>
+
 </html>

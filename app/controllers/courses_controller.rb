@@ -1,28 +1,25 @@
 class CoursesController < ApplicationController
+layout "logged_in"
     
     def index
-        @courses = Course.all
+        @teacher = Teacher.find(session[:teacher_id])
+        @courses = Course.where("teacher_id= ?", @teacher.id)
     end
 
     def new
         @course = Course.new
+        @teacher = Teacher.find(session[:teacher_id])
+        @students = Student.where("teacher_id= ?", @teacher.id)
     end
 
     def create
         @teacher = Teacher.find(params[:course][:teacher_id])
         @course = Course.create(course_params)
-        # @course = Course.new(
-        #     title: params[:course][:title],
-        #     teacher_id: @teacher.id,
-        #     student_ids: params[:course][:student_ids]
-        # )
-        # binding.pry
-
-        # @course.save
         if @course.save
+            @course.teacher = @teacher
             redirect_to course_path(@course)
         else
-            redirect_to '/'
+            render :new
         end
     end
 
@@ -33,6 +30,7 @@ class CoursesController < ApplicationController
 
     def edit
         @course = Course.find(params[:id])
+        @teacher = @course.teacher
     end
 
     def update
@@ -42,7 +40,9 @@ class CoursesController < ApplicationController
     end
 
     def destroy
-        
+        @course = Course.find(params[:id])
+        @course.destroy
+        redirect_to courses_path
     end
 
     private
@@ -52,5 +52,3 @@ class CoursesController < ApplicationController
     end
 
 end
-
-#:teacher_id,

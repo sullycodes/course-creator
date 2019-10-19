@@ -1,8 +1,39 @@
-<h1>Name: <%= @student.name %></h1>
-<h3>Courses: </h4>
-<ul>
-    <% @student.courses.each do |c| %>   
-        <li><%= c.title %></li>
-    <% end %>
-</ul>
+<h3>Name: <%= @student.name.capitalize %></h3>
+
+    <p>Teacher: <%= link_to @teacher.name, teacher_path(@teacher) %></p>
+    <p>Bio: <%= @student.bio %></p>
+    <p>Strengths: <%= @student.strengths %></p>
+    <p>Weaknesses: <%= @student.weaknesses %></p>
+    <p>Interests: <%= @student.interests %></p>
+    <p>Grades: <%= @student.grades %></p>
+
+
+<% if @student.courses.count != 0 %> 
+
+<h4>Courses: </h4>
+    <ul>
+        <% @student.courses.each do |c| %>   
+            <li><%= link_to c.title, course_path(c) %></li>
+        <% end %>
+    </ul>
+
+<% end %>
+
+<%# else %>
+<!--
+    <p><%#= link_to "Enroll #{@student.name.capitalize} ", enroll_path %> in one of your courses. </p>
+
+<%# end %>
+-->
+
+<p><%= link_to "Edit", edit_teacher_student_path(@teacher, @student) %> </p>
+<p><%#= link_to "Delete", teacher_student_path(@teacher, @student), method: :delete %> </p>
+
+<%#= button_to "Delete", post_comment_path(@post, comment), method: :delete %>
+
+<%#= link_to "Delete", post_comment_path(@post, comment), method: :delete %>
+
+<%#= link_to "Delete", @course, :method => :delete %> </p>
+
+
 

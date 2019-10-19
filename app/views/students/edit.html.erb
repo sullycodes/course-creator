@@ -1,0 +1,10 @@
+<%= form_with(model: @student, url: [@teacher, @student], local: true) do |f| %>
+    <p>Name: <%= f.text_field :name %></p>
+    <p>Bio: <%= f.text_area :bio %></p>
+    <p>Strengths: <%= f.text_field :strengths %></p>
+    <p>Weaknesses: <%= f.text_field :weaknesses %></p>
+    <p>Interests: <%= f.text_field :interests %></p>
+    <p>Grades: <%= f.text_field :grades %></p>
+    <p>Courses: <%= f.collection_check_boxes :course_ids, @teacher.courses, :id, :title %></p>
+    <%= f.submit "Update" %>
+<% end %>

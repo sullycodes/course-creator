@@ -1,0 +1,17 @@
+<h3>Name: <%= link_to @student.name.capitalize, teacher_student_path(@student) %></h3>
+<p>Teacher: <%= link_to @student.teacher.name, teacher_path(@teacher) %></p>
+
+<%= form_with model: @course do |f| %>
+  <%= f.collection_select(:title, @courses, :id, :title) %>
+    <%= f.hidden_field :teacher_id, :value => @teacher.id %>
+    <%= f.hidden_field :student_id, :value => @student.id %>
+  <%= f.submit "Assign Course" %>
+<% end %>
+
+<% if @warning == true %>
+  <p class="warning"> Student is already in enrolled in this class!</p>
+<% end %>
+
+
+
+

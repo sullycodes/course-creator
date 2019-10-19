@@ -1,0 +1,35 @@
+<% if @course.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@course.errors.count, "error") %>
+      prohibited this course from being saved:
+    </h2>
+ 
+    <ul>
+    <% @course.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @teacher.students.count != 0 %>
+  
+  <%= form_for @course do |f| %>
+    <p>Title: <%= f.text_field :title %></p>
+    <p>Students: <%= f.collection_check_boxes :student_ids, @teacher.students, :id, :name %></p>
+    <%= f.hidden_field :teacher_id, :value => @teacher.id %>
+    <%= f.submit %>
+  <% end %>
+
+<% else %>
+  
+  <%= form_for @course do |f| %>
+    <p>Title: <%= f.text_field :title %></p>
+    <%= f.hidden_field :teacher_id, :value => @teacher.id %>
+    <%= f.submit %>
+  <% end %>
+  
+<% end %>
+
+<p>Back to <%= link_to @teacher.name, teacher_path(@teacher) %></p>

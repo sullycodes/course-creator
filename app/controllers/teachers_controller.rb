@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+layout "logged_in"
 
     def index
         @teachers = Teacher.all
@@ -21,7 +22,7 @@ class TeachersController < ApplicationController
     def show
         @teacher = Teacher.find(params[:id])
         @students = Student.where("teacher_id= ?", @teacher.id)
-        @course = Course.new
+        #@courses = Course.where("teacher_id= ?", @teacher.id)
         render :show
     end
 

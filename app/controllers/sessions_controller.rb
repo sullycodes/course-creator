@@ -1,12 +1,18 @@
 class SessionsController < ApplicationController
+layout "logged_in"
 
     def new
+        if session[:teacher_id]
+            @teacher = Teacher.find(session[:teacher_id])
+            redirect_to teacher_path(@teacher)
+        end
+        render :new
     end
 
     def create
         @teacher = Teacher.find_by(username: params[:username])
         if @teacher && @teacher.authenticate(params[:password])
-            session[:user_id] = @teacher.id
+            session[:teacher_id] = @teacher.id
             flash[:success] = "You have successfully logged in."
             redirect_to teacher_path(@teacher)
         else
@@ -15,10 +21,27 @@ class SessionsController < ApplicationController
         end
     end
 
+    def facebook_create
+        @teacher = Teacher.find_or_create_by(uid: auth['uid']) do |t|
+            t.name = auth['info']['name']
+            t.username = auth['info']['name'].gsub(/\s+/, "").downcase
+            t.password = "test"
+          end       
+        session[:teacher_id] = @teacher.id
+        redirect_to teacher_path(@teacher)
+    end
+
     def destroy
-        session[:user_id] = nil
+        session[:teacher_id] = nil
         flash[:success] = "You have successfully logged out."
         redirect_to '/login'
+    end
+
+
+    private
+    
+    def auth
+        request.env['omniauth.auth']
     end
 
 end

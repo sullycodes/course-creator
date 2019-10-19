@@ -1,0 +1,7 @@
+<P>Teacher: <%= link_to @course.teacher.name, teacher_path(@course.teacher)  %>
+
+<%= form_for @course do |f| %>
+    <p>Title: <%= f.text_field :title %></p>
+    <p>Students: <%= f.collection_check_boxes :student_ids, @teacher.students, :id, :name %></p>
+    <%= f.submit "Update" %>
+<% end %>

@@ -1,7 +1,16 @@
-<h1>Course Name: <%= @course.title %></h1>
-<P># of students: <%= @course.students.count %>
-<% teacher_name = @course.teacher.name %>
-<P>Teacher: <%= link_to teacher_name, teacher_path(@course.teacher)  %>
+<h3>Course Name: <%= @course.title %></h3>
 
+<P>Teacher: <%= link_to @course.teacher.name, teacher_path(@course.teacher)  %>
 
+<p>Number of students enrolled: <%= @course.students.count %></p>
+
+<% student_list = [] %>
+<% @course.students.each do |s| %>
+    <%student_list << s.name %>
+<% end %>
+
+<p>Students: <%= student_list.map{ |n| n.capitalize }.join(', ') %></p>
+
+<p><%= link_to "Edit", edit_course_path %> 
+    <%= link_to "Delete", @course, :method => :delete %> </p>
 
