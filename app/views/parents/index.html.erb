@@ -1,0 +1,4 @@
+<h3> Parents </h3>
+<% @parents.each do |p| %>
+    <%= link_to p.name, parent_path(p) %><br>
+<% end %> 

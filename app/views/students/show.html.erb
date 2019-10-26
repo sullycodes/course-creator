@@ -6,11 +6,15 @@
     <p>Weaknesses: <%= @student.weaknesses %></p>
     <p>Interests: <%= @student.interests %></p>
     <p>Grades: <%= @student.grades %></p>
-
+    <%if @student.parent %>
+        <p>Parent Name: <%= link_to @student.parent.name, parent_path(@student.parent) %></p>
+    <% else %>
+        
+    <% end %>
 
 <% if @student.courses.count != 0 %> 
 
-<h4>Courses: </h4>
+<h3>Courses: </h3>
     <ul>
         <% @student.courses.each do |c| %>   
             <li><%= link_to c.title, course_path(c) %></li>
@@ -19,21 +23,10 @@
 
 <% end %>
 
-<%# else %>
-<!--
-    <p><%#= link_to "Enroll #{@student.name.capitalize} ", enroll_path %> in one of your courses. </p>
 
-<%# end %>
--->
+<p><%= link_to "Edit", edit_teacher_student_path(@teacher, @student) %> &nbsp<%= link_to "Delete", teacher_student_path(@teacher, @student), method: :delete %> </p>
 
-<p><%= link_to "Edit", edit_teacher_student_path(@teacher, @student) %> </p>
-<p><%#= link_to "Delete", teacher_student_path(@teacher, @student), method: :delete %> </p>
 
-<%#= button_to "Delete", post_comment_path(@post, comment), method: :delete %>
-
-<%#= link_to "Delete", post_comment_path(@post, comment), method: :delete %>
-
-<%#= link_to "Delete", @course, :method => :delete %> </p>
 
 
 

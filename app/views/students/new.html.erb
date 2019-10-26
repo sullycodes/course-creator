@@ -2,7 +2,7 @@
 
 <% if @student.errors.any? %>
   <div id="error_explanation">
-    <p class="warning"><%= pluralize(@student.errors.count, "error") %> prohibited this course from being saved: </p>
+    <p class="warning"><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved: </p>
     <ul>
     <% @student.errors.full_messages.each do |msg| %>
       <li class="warning"><%= msg %></li>
@@ -20,6 +20,9 @@
         <p>Weaknesses: <%= f.text_field :weaknesses %></p>
         <p>Interests: <%= f.text_field :interests %></p>
         <p>Grades: <%= f.text_field :grades %></p>
+        <p>Parent Name: <%= f.text_field :parent_name %></p>
+        <p>Parent Phone: <%= f.text_field :parent_phone %></p>
+        <p>Parent Email: <%= f.text_field :parent_email %></p>
         <p>Courses: <%= f.collection_check_boxes :course_ids, @teacher.courses, :id, :title %></p>
         <p><%= f.submit "Submit" %></p>
     <% end %>
@@ -33,6 +36,9 @@
         <p>Weaknesses: <%= f.text_field :weaknesses %></p>
         <p>Interests: <%= f.text_field :interests %></p>
         <p>Grades: <%= f.text_field :grades %></p>
+        <p>Parent Name: <%= f.text_field :parent_name %></p>
+        <p>Parent Phone: <%= f.text_field :parent_phone %></p>
+        <p>Parent Email: <%= f.text_field :parent_email %></p>
         <p><%= f.submit "Submit" %></p>
     <% end %>
 

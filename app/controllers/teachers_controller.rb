@@ -1,6 +1,8 @@
 class TeachersController < ApplicationController
 layout "logged_in"
 
+    before_action :authenticate, except: [:new, :create]
+    
     def index
         @teachers = Teacher.all
     end
@@ -12,7 +14,7 @@ layout "logged_in"
     def create
         @teacher = Teacher.create(teacher_params) 
         if @teacher.save
-            session[:user_id] = @teacher.id
+            session[:teacher_id] = @teacher.id
             redirect_to teacher_path(@teacher)
         else
             redirect_to '/signup'
@@ -22,8 +24,11 @@ layout "logged_in"
     def show
         @teacher = Teacher.find(params[:id])
         @students = Student.where("teacher_id= ?", @teacher.id)
+        if @teacher.id != session[:teacher_id]
+            redirect_to '/403.html'
+        end
         #@courses = Course.where("teacher_id= ?", @teacher.id)
-        render :show
+        #flash[:warning] = "You are not authorized motherfucker!"
     end
 
     def edit
@@ -37,7 +42,9 @@ layout "logged_in"
     end
 
     def destroy
-        
+        @teacher = Teacher.find(params[:id])
+        @teacher.destroy
+        redirect_to '/login'
     end
 
     private
@@ -45,8 +52,5 @@ layout "logged_in"
     def teacher_params
         params.require(:teacher).permit(:name, :username, :password, :password_confirmation)
     end
-
-
-
 
 end

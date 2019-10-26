@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
 layout "logged_in"
     
+    before_action :authenticate
+
     def index
         @teacher = Teacher.find(session[:teacher_id])
         @courses = Course.where("teacher_id= ?", @teacher.id)
@@ -25,22 +27,25 @@ layout "logged_in"
 
     def show
         @course = Course.find(params[:id])
-        render :show
+        authorize(@course)
     end
 
     def edit
         @course = Course.find(params[:id])
         @teacher = @course.teacher
+        authorize(@course)
     end
 
     def update
         @course = Course.find(params[:id])
+        authorize(@course)
         @course.update(course_params)
         redirect_to course_path(@course)
     end
 
     def destroy
         @course = Course.find(params[:id])
+        authorize(@course)
         @course.destroy
         redirect_to courses_path
     end

@@ -12,19 +12,35 @@
 
   <body>
     
-  <nav class="topnav">
-    <a href="/">Home</a>
-    <a href="/logout">Logout</a>
-  </nav>
+    <nav class="topnav">
+      <a href="/" class="active" ><b>COURSE CREATOR</b></a>
+      <a href="/courses">Courses
+      <a href="/teachers/<%= session[:teacher_id] %>/students">Students</a>
+      <a href="/parents">Parents</a>
+      <a href="/conferences">Conferences</a>
+    </nav>
 
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-    </div>
+    <nav class="botnav">
+      <a href="/logout" class="active">Logout</a>
+      <a href="/" class="not-active">Hello, <b>
+        <% if !session[:teacher_id] %>
+            NOBODY
+        <% else %>
+          <% @teacher = Teacher.find(session[:teacher_id]) %>
+            <%= @teacher.username.upcase %>
+        <% end %></b> 
+      </a>
+    </nav>
 
-    <%= yield %>
+    <div id="wrapper">
+      <div class="container">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+      </div>
 
+      <%= yield %>
+    </div> <!-- wrapper end -->
   </body>
 
 </html>

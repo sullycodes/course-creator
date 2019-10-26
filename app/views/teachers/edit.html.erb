@@ -1,17 +1,9 @@
 <%= form_for @teacher do |f| %>
     
-    <%= f.label 'Name' %><br>
-    <%= f.text_field :name %><br>
- 
-    <%= f.label 'Username' %><br>
-    <%= f.text_field :username %><br>
-
-    <%= f.label 'Password' %><br>
-    <%= f.password_field :password %><br>
-
-    <%= f.label 'Password Confirmation' %><br>
-    <%= f.password_field :password_confirmation %><br>
-
+    <p><%= f.label 'Name: ' %><%= f.text_field :name %></p>
+    <p><%= f.label 'Username: ' %><%= f.text_field :username %></p>
+    <p><%= f.label 'Password: ' %><%= f.password_field :password %></p>
+    <p><%= f.label 'Password Confirmation: ' %><%= f.password_field :password_confirmation %></p>
     <%= f.submit "Update" %>
 
-<% end %>1
+<% end %>

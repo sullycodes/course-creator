@@ -1,0 +1,14 @@
+<h3>Scheduled Conference</h3>
+
+    <p>Teacher: <%= link_to @teacher.name, teacher_path(@teacher) %></p>
+    <p>Parent: <%= @conference.parent.name %></p>
+    <p>Date: <%= @conference.date %></p>
+    <p>Time: <%= @conference.time %></p>
+
+<p><%= link_to "Edit", edit_conference_path(@conference) %> </p>
+<p><%#= link_to "Delete", teacher_student_path(@teacher, @student), method: :delete %> </p>
+
+
+
+
+

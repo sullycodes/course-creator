@@ -1,0 +1,11 @@
+<h3>Conferences</h3> 
+
+<ul>
+    <% @teacher.conferences.each do |c| %>
+        <% if c.parent %>
+            <p><%= link_to c.parent.name, conference_path(c) %> - <%= c.date %> </p>   
+        <% end %>  
+    <% end %>
+</ul>
+
+<%= link_to "Create a conference", new_conference_path %>

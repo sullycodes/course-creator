@@ -9,8 +9,17 @@
         <p><%= link_to "Create a New Student", new_teacher_student_path(@teacher) %></p>
     <% else %>
         <p>Number of <%= link_to "Students:", teacher_students_path(@teacher) %> <%= @teacher.students.count %></p> 
+        <% if @teacher.courses.count == 0 %>
+            <p><%= link_to "Create a Conference", new_conference_path %></p>
+        <% else %>
+            <p>Number of <%= link_to "Conferences:", conferences_path %> <%= @teacher.conferences.count %></p> 
+        <% end %>
     <% end %>
 <% end %>
+
+<p><%= link_to "Edit", edit_teacher_path(@teacher) %> &nbsp <%= link_to "Delete", teacher_path(@teacher), method: :delete %> </p>
+
+
 
 
 

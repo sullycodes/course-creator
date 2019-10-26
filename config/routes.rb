@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
-  get '/' => 'welcome#home'
+  
+  resources :conferences
+  resources :parents
   resources :teachers, except: [:index] do
     resources :students
   end
   resources :courses
+
+  get '/' => 'welcome#home'
   get '/signup' => 'teachers#new'
+  post '/signup' => 'teachers#create'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy', as: 'logout'

@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
 layout "logged_in"
 
+    before_action :authenticate
+
     def index
         if params[:teacher_id]      
             @teacher = Teacher.find(params[:teacher_id])
@@ -23,10 +25,12 @@ layout "logged_in"
       @teacher = Teacher.find(params[:teacher_id])
       @student = Student.create(student_params)
       @student.teacher = @teacher
-      @student.save
-      if @student.save
+      #@parent = Parent.create(parent_params)
+      @parent = Parent.create(name: params[:student][:parent_name], phone: params[:student][:parent_phone], email: params[:student][:parent_email])
+      if @parent.save
+        @student.parent = @parent
+        @student.save
         redirect_to teacher_student_path(@teacher, @student)
-        #render :show
       else
         render :new
       end
@@ -35,7 +39,8 @@ layout "logged_in"
     def show
         @student = Student.find(params[:id])
         @teacher = Teacher.find(params[:teacher_id])
-        @courses = @teacher.courses          
+        @courses = @teacher.courses
+        authorize(@student)          
         if !@student
           redirect_to teacher_students_path
         end
@@ -44,11 +49,13 @@ layout "logged_in"
     def edit
       @student = Student.find(params[:id])
       @teacher = Teacher.find(params[:teacher_id])
+      authorize(@student)          
     end
 
     def update
       @student = Student.find(params[:id])
       @teacher = Teacher.find(params[:teacher_id])
+      authorize(@student)          
       @student.update(student_params)
       render :show
     end
@@ -59,45 +66,15 @@ layout "logged_in"
       redirect_to teacher_students_path
     end
 
-  #  # send student model from show to students#enroll (get 'students/enroll' in routes)
-  #  def enroll
-  #   @student = Student.find(params[:id])
-  #   @teacher = Teacher.find(@student.teacher.id)
-  #   @courses = @teacher.courses
-  #   if !@courses
-  #     redirect_to teacher_path(@teacher)
-  #   end
-  #   #show a form that lists the teachers courses that the teacher can enroll them in and be able to select it via a dropdown
-  # end
-
-  # def create_enrollment
-  #   @warning = false
-  #   @student = Student.find(params[:student_id])
-  #   @teacher = Teacher.find(@student.teacher_id)
-  #   @course = Course.find_by(params[:title])
-  #   if !@student.courses.include?(@course) 
-  #     @student.courses << @course
-  #     render :show
-  #   # else
-  #   #   @warning = true
-  #   #   render :enroll
-  #   end
-  # end
-
-  # def unenroll
-  #   @student = Student.find(params[:id])
-  #   @teacher = Teacher.find(@student.teacher_id)
-  #   @courses = @teacher.courses
-  #   if !@courses
-  #     redirect_to teacher_student_path(@student)
-  #   end
-  # end
-
-
     private 
 
     def student_params
-      params.require(:student).permit(:name, :bio, :strengths, :weaknesses, :interests, :grades, course_ids: [])
+      params.require(:student).permit(:name, :bio, :strengths, 
+                                    :weaknesses, :interests, :grades, course_ids: [])
     end
+
+    # def parent_params
+    #   params.require(:student).permit(:parent_name, :parent_phone, :parent_email) 
+    # end
 
 end

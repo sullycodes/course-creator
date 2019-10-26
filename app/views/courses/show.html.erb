@@ -1,3 +1,4 @@
+
 <h3>Course Name: <%= @course.title %></h3>
 
 <P>Teacher: <%= link_to @course.teacher.name, teacher_path(@course.teacher)  %>
@@ -13,4 +14,6 @@
 
 <p><%= link_to "Edit", edit_course_path %> 
     <%= link_to "Delete", @course, :method => :delete %> </p>
+
+
 

@@ -1,0 +1,10 @@
+<h3>Edit Conference</h3>
+
+<%= form_for @conference do |f| %>
+    <p>Parent: <%= @conference.parent.name %></p>
+    <p>Date: <%= f.select(:date, ['Oct 20', 'Oct 21', 'Oct 22', 'Oct 23', 'Oct 24']) %></p>
+    <p>Time: <%= f.select(:time, ['3 pm', '3:30 pm', '4 pm', '4:30 pm']) %></p>
+    <%= f.submit %>
+<% end %>
+
+

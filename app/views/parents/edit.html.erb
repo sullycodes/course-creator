@@ -1,0 +1,7 @@
+<h3> Parent Update </h3>
+<%= form_for @parent do |f| %>
+        <p>Parent Name: <%= f.text_field :name %></p>
+        <p>Parent Phone: <%= f.text_field :phone %></p>
+        <p>Parent Email: <%= f.text_field :email %></p>
+    <%= f.submit "Update" %>
+<% end %>

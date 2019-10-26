@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_212618) do
+ActiveRecord::Schema.define(version: 2019_10_20_191121) do
+
+  create_table "conferences", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "teacher_id"
+    t.string "date"
+    t.string "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "course_students", force: :cascade do |t|
     t.integer "course_id"
@@ -26,6 +35,14 @@ ActiveRecord::Schema.define(version: 2019_10_18_212618) do
     t.integer "teacher_id"
   end
 
+  create_table "parents", force: :cascade do |t|
+    t.string "name"
+    t.integer "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.text "bio"
@@ -36,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_212618) do
     t.integer "teacher_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "parent_id"
   end
 
   create_table "teachers", force: :cascade do |t|

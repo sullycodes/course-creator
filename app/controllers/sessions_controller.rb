@@ -6,7 +6,6 @@ layout "logged_in"
             @teacher = Teacher.find(session[:teacher_id])
             redirect_to teacher_path(@teacher)
         end
-        render :new
     end
 
     def create
@@ -25,7 +24,7 @@ layout "logged_in"
         @teacher = Teacher.find_or_create_by(uid: auth['uid']) do |t|
             t.name = auth['info']['name']
             t.username = auth['info']['name'].gsub(/\s+/, "").downcase
-            t.password = "test"
+            t.password = rand_password=('0'..'z').to_a.shuffle.first(60).join
           end       
         session[:teacher_id] = @teacher.id
         redirect_to teacher_path(@teacher)
